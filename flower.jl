@@ -1,3 +1,6 @@
+#About Rhodonea Curves on Wiki:
+#https://en.wikipedia.org/wiki/Rose_(mathematics)
+
 # Pkg.add("Plots")
 # Pkg.add("PyPlot")
 # ENV["PYTHON"]= "path to my local python.exe"
