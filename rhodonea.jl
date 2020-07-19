@@ -9,12 +9,13 @@
 using Plots; pyplot();
 
 n = 240;
-Θ=range(-π/2,stop=π/2,length=n);
-K = [5 7 9 11 13 15 17 19 21];
-A = [1.0 0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2];
-C = ["lightcoral" "indianred1" "lightcoral" "coral" "indianred1" "firebrick1" "pink" "crimson" "firebrick1"];
+N = [2];
+d = [5];
+K = N./d;
+A = [0.9];
+C = ["indianred1"];
 
-Rhodonea = [A[f].*vcat([[cos(K[f]*θ)*cos(θ) cos(K[f]*θ)*sin(θ)] for θ=Θ]...) for f=1:size(K,2)];
+Rhodonea = [A[f].*vcat([[cos(K[f]*θ)*cos(θ) cos(K[f]*θ)*sin(θ)] for θ=range(-π/2/K[f],stop=-π/2/K[f]+2π*d[f],length=n)]...) for f=1:size(K,2)];
 
 draw = @animate for fr=1:(size(K,2)*n-1)
     f=Integer(floor(fr/n)+1);
@@ -24,7 +25,8 @@ draw = @animate for fr=1:(size(K,2)*n-1)
         rhodonea=Rhodonea[1];
         plot(rhodonea[1:i,1],rhodonea[1:i,2],color=C[1],
             legend=false,xaxis=false,yaxis=false,
-            xlims=(-1,1),ylims=(-1,1))
+            xlims=(-1,1),ylims=(-1,1),
+            size=(400,400))
     else
         #the first one
         rhodonea=Rhodonea[1];
@@ -41,6 +43,6 @@ draw = @animate for fr=1:(size(K,2)*n-1)
         rhodonea=Rhodonea[f];
         plot!(rhodonea[1:i,1],rhodonea[1:i,2],color=C[f])
     end
-end
+end;
 
-gif(draw, "rhodonea.gif", fps = 48)
+gif(draw, "rhodonea.gif", fps = 24)
